@@ -4,4 +4,14 @@
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>FrontServlet</display-name>
+    <servlet-name>FrontServlet</servlet-name>
+    <servlet-class>com.app.controller.FrontServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FrontServlet</servlet-name>
+    <url-pattern>/*</url-pattern>
+  </servlet-mapping>
 </web-app>

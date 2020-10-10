@@ -1,11 +1,11 @@
 package com.app.models;
 
 public class User {
-	private int userId; 
+	private int user_id; 
 	private String username; 
-	private String password;
-	private String firstName; 
-	private String lastName; 
+	private String pass_word;
+	private String first_name; 
+	private String last_name; 
 	private String email; 
 	private String updatePassword;
 
@@ -27,10 +27,10 @@ public class User {
 	public User(int userId, String username, String firstName, String lastName, String email,
 			Role role) {
 		super();
-		this.userId = userId;
+		this.user_id = userId;
 		this.username = username;		
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.first_name = firstName;
+		this.last_name = lastName;
 		this.email = email;
 		this.role = role;
 	}
@@ -38,29 +38,29 @@ public class User {
 	public User(String username, String password, String firstName, String lastName, String email, Role role) {
 		super();		
 		this.username = username;	
-		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.pass_word = password;
+		this.first_name = firstName;
+		this.last_name = lastName;
 		this.email = email;
 		this.role = role;
 	}
 	
 	public User(int userId, String username, String password, String firstName, String lastName, String email, Role role) {
 		super();
-		this.userId = userId;
+		this.user_id = userId;
 		this.username = username;
-		this.password = password;
+		this.pass_word = password;
 		this.role = role;
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.first_name = firstName;
+		this.last_name = lastName;
 		this.email = email;
 	}
 
 	public int getUserId() {
-		return userId;
+		return user_id;
 	}
 	public void setUserId(int userId) {
-		this.userId = userId;
+		this.user_id = userId;
 	}
 	public String getUsername() {
 		return username;
@@ -69,22 +69,22 @@ public class User {
 		this.username = username;
 	}
 	public String getPassword() {
-		return password;
+		return pass_word;
 	}
 	public void setPassword(String password) {
-		this.password = password;
+		this.pass_word = password;
 	}
 	public String getFirstName() {
-		return firstName;
+		return first_name;
 	}
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+		this.first_name = firstName;
 	}
 	public String getLastName() {
-		return lastName;
+		return last_name;
 	}
 	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		this.last_name = lastName;
 	}
 	public String getEmail() {
 		return email;
@@ -100,8 +100,8 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", firstName="
-				+ firstName + ", lastName=" + lastName + ", email=" + email + ", role=" + role + "]";
+		return "User [userId=" + user_id + ", username=" + username + ", password=" + pass_word + ", firstName="
+				+ first_name + ", lastName=" + last_name + ", email=" + email + ", role=" + role + "]";
 	}
 
 }

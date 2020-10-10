@@ -5,6 +5,7 @@ import com.app.models.User;
 import com.app.dao.util.mySqlConnector;
 import com.app.utils.Hashing;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,6 +27,40 @@ public class UserDao {
 	public UserDao(int x) {
 		
 	}
+	public User login(String username, String password)  {	
+		//System.out.println("Attempting to login");
+		
+		try {
+			password = Hashing.getHash(password);
+		} catch (NoSuchAlgorithmException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		try(Connection connector = mySqlConnector.getConnection()){			
+			String sql = "SELECT * FROM users WHERE username = ? AND pass_word = ?;";
+			PreparedStatement statement = connector.prepareStatement(sql);
+			statement.setString(1,username);
+			statement.setString(2,password);
+			
+			ResultSet rs = statement.executeQuery();
+			
+			if(rs.next()) {
+				User user = new User(rs.getInt("user_id"), rs.getString("username"), rs.getString("pass_word"),
+						rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"),roledoa.findRoleById(rs.getInt("role_id_users")));
+				return user;
+			}else{
+				throw new LoginException("Invalid Credentials");
+			}
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			
+		}
+		return null;
+	}
+	
 	public User insert2(User user) {
 
 		try {
