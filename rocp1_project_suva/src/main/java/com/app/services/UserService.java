@@ -56,49 +56,5 @@ public class UserService {
 		return udao.findByUsername(u);
 	}
 	
-//	public User updateUser(UserDTO udto, int roleId, int authUserId) {
-//				
-//		User user = udao.findById(udto.userId);
-//		boolean isChanging = false;
-//		
-//		// Update fields with new data if not null	
-//		if(roleId == 1 || roleId == 2 || authUserId == udto.userId) {
-//			if(udto.email != null && udto.email != "" && !user.getEmail().equals(udto.email)) {
-//				user.setEmail(udto.email);
-//				isChanging = true;
-//			}
-//			if(udto.newPassword != null && udto.newPassword.length() > 3) {
-//				user.setPasswordNew(udto.newPassword);
-//				isChanging = true;
-//			}			
-//		}
-//		
-//		// Update the following fields if Admin only		
-//		if(roleId == 1) {
-//			if(udto.firstName != null && udto.firstName != "" && !user.getFirstName().equals(udto.firstName)) {
-//				user.setFirstName(udto.firstName);
-//				isChanging = true;
-//			}
-//			if(udto.lastName != null && udto.lastName != "" && !user.getLastName().equals(udto.lastName)) {
-//				user.setLastName(udto.lastName);	
-//				isChanging = true;
-//			}
-//			if(udto.roleId > 0 && user.getRole().getRoleId() != udto.roleId) {
-//				Role userRole = rdao.findById(udto.roleId);
-//				user.setRole(userRole);
-//				isChanging = true;
-//			}		
-//		}
-//		
-//		if(isChanging) {
-//			if(udao.update(user)) {
-//				return udao.findById(udto.userId);
-//			}else {
-//				return null;
-//			}
-//		}
-//				
-//		return null;				
-//	}
 	
 }
