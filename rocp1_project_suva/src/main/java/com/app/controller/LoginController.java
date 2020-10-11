@@ -74,5 +74,30 @@ public class LoginController {
 
 		
 	}
+	
+	public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		HttpSession ses = request.getSession(false);
+		
+		
+		if (ses != null) {
+			String username = (String) ses.getAttribute("username");
+			ses.invalidate();
+			response.setStatus(200);
+			String message = "{ \"message\": \"You have successfully logged out {username}\" }";
+			StringBuffer jb = new StringBuffer();
+			jb.append("{ \"message\": \"You have successfully logged out ");
+			jb.append(username);
+			jb.append("\" }");
+	    	JsonObject json2 = new Gson().fromJson(jb.toString(), JsonObject.class);
+	    	response.getWriter().println(json2);
+		} else {
+			response.setStatus(400);
+			String message = "{ \"message\": \"There was no user logged into the session\" }";
+	    	JsonObject json2 = new Gson().fromJson(message, JsonObject.class);
+	    	response.getWriter().println(json2);
+		}
+		
+		
+	}
 
 }

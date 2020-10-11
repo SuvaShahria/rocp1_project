@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 
 /**
  * Servlet implementation class FrontServlet
@@ -90,27 +93,59 @@ public class FrontServlet extends HttpServlet {
 			}else {
 				response.getWriter().println("Not supported method");			
 			}
-			System.out.println("login");
+			//System.out.println("login");
 			break;
 		case "logout":
-			System.out.println("logout");
+			if (method.equals("POST")) {
+				login.logout(request, response);
+			}else {
+				response.setStatus(400);			
+			}
+			//System.out.println("logout");
 			break;
 		case "users":
 			if (method.equals("POST")) {
 				if(roleId == 1) {
 					userController.register(request, response);
 				}else {
-					response.getWriter().println("Only admin can access");		
+					response.setStatus(401);
+					String message = "{ \"message\": \"The requested action is not permitted\" }";
+			    	JsonObject json2 = new Gson().fromJson(message, JsonObject.class);
+			    	response.getWriter().println(json2);	
 				}
 			}else if(method.equals("DELETE")) {
 				if(roleId == 1) {
 					userController.delete(request, response);
 				}else {
-					response.getWriter().println("Only admin can access");		
+					response.setStatus(401);
+					String message = "{ \"message\": \"The requested action is not permitted\" }";
+			    	JsonObject json2 = new Gson().fromJson(message, JsonObject.class);
+			    	response.getWriter().println(json2);		
 				}
 			}else if(method.equals("PUT")) {
 				userController.update(request,response,roleId);
 				
+			}else if(method.equals("GET")) {
+				//System.out.println(urlSplit.length);
+				if(roleId == 1 || roleId == 2) {
+					
+					if(urlSplit.length != 2) {
+						userController.findAllUsers(request,response);
+						//System.out.println(urlSplit.length);
+						//System.out.println("t"+ urlSplit[1]);
+						//uc.findAll(req, res);
+					} else {
+						userController.findById(request,response,urlSplit[1]);
+						//System.out.println(urlSplit[1]);
+						//System.out.println(urlSplit[1]);
+						//uc.findById(req, res,Integer.parseInt(URIparts[1]));
+					}
+				}else {
+					response.setStatus(401);		
+					String message = "{ \"message\": \"The requested action is not permitted\" }";
+			    	JsonObject json2 = new Gson().fromJson(message, JsonObject.class);
+			    	response.getWriter().println(json2);
+				}
 			}
 			
 			//System.out.println("users");

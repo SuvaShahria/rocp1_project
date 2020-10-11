@@ -10,6 +10,7 @@ import com.google.gson.JsonObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.List;
 
 public class UserController {
 	private static final UserService userService = new UserService();
@@ -57,10 +58,44 @@ public class UserController {
 		HttpSession ses = request.getSession(false);
 		if(ses != null) {
 			if(roleId ==1 || user.getUserId() == (int)ses.getAttribute("userid")) {
-				System.out.println("pass");
+				User u2 = userService.updateUser(user);
+				if(u2 != null) {
+					response.getWriter().println(gson.toJson(user));
+				}else {
+					String message = "{ \"message\": \"Failed to Update- Check ID\" }";
+			    	JsonObject json2 = new Gson().fromJson(message, JsonObject.class);
+			    	response.getWriter().println(json2);
+				}
+			}else {
+				response.setStatus(401);
+				String message = "{ \"message\": \"The requested action is not permitted\" }";
+		    	JsonObject json2 = new Gson().fromJson(message, JsonObject.class);
+		    	response.getWriter().println(json2);
 			}
 		}
 		
+		
+	}
+	public void findById(HttpServletRequest request, HttpServletResponse response, String s)throws ServletException, IOException {
+		int id = Integer.parseInt(s);
+		Gson gson=new Gson();
+		User user = userService.findById(id);
+		if(user!= null) {
+			response.setStatus(200);
+			response.getWriter().println(gson.toJson(user));
+		}else {
+			response.setStatus(400);
+			String message = "{ \"message\": \"Invalid\" }";
+	    	JsonObject json2 = new Gson().fromJson(message, JsonObject.class);
+	    	response.getWriter().println(json2);
+		}
+		
+	}
+	public void findAllUsers(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+		List<User> UL =userService.findAllUsers();
+		Gson gson=new Gson();
+		
+		response.getWriter().println(gson.toJson(UL));
 		
 	}
 

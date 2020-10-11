@@ -152,19 +152,17 @@ public class UserDao {
 		return null;
 	}
 	public boolean update(User user) {
-		if(user.getUpdatePassword()!= null) {
-			try {
-				user.setPassword(Hashing.getHash(user.getUpdatePassword()));
-			} catch (Exception e) {
-				e.printStackTrace();
-				return false;
-			}
+		try {
+			user.setPassword(Hashing.getHash(user.getPassword()));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
 		}
 		
 		
 		
 		try(Connection c = mySqlConnector.getConnection()){			
-			String sql = "UPDATE users SET username = ?, pass_word = ?, first_name = ?,last_name = ?, email = ?, role_id_users = ? WHERE user_id = ?;";
+			String sql = "UPDATE users SET username = ?, pass_word = ?, first_name = ?,last_name = ?, email = ? WHERE user_id = ?;";
 		
 		
 			PreparedStatement statement = c.prepareStatement(sql);
@@ -173,8 +171,7 @@ public class UserDao {
 			statement.setString(3,user.getFirstName().trim());
 			statement.setString(4,user.getLastName().trim());
 			statement.setString(5,user.getEmail().trim().toLowerCase());
-			statement.setInt(6,user.getRole().getRoleId());
-			statement.setInt(7,user.getUserId()); //manual input fornow
+			statement.setInt(6,user.getUserId()); //manual input fornow
 			
 			statement.executeUpdate();		
 			
@@ -258,6 +255,27 @@ public class UserDao {
 						rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"),roledoa.findRoleById(rs.getInt("role_id_users")));
 				return us;
 			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public List<User> findAllUsers() {
+		try(Connection conn = mySqlConnector.getConnection()){
+			List<User> users = new ArrayList<>();
+			String sql = "SELECT * FROM users ORDER BY last_name, first_name;";
+			Statement statement = conn.createStatement();	
+			ResultSet rs = statement.executeQuery(sql);
+			
+			while(rs.next()) {
+				User user = new User(rs.getInt("user_id"), rs.getString("username"), rs.getString("pass_word"),
+						rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"),roledoa.findRoleById(rs.getInt("role_id_users")));
+				
+				users.add(user);
+			}
+			
+			return users;
 			
 		}catch(SQLException e) {
 			e.printStackTrace();

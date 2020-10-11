@@ -9,13 +9,13 @@ public class test {
 ////		System.out.print("hi");
 //	Role r1 = r.findRoleById(2);
 //	System.out.print(r1.getRole());
-		Role r = new Role(1,"admin");
-		Role r2 = new Role(2,"employee");
-		Role r3 = new Role(3,"customer");
-		User a = new User("a", "a", "a", "a", "a@gmail.com", r);
-		User e = new User("e", "e", "e", "e", "e@gmail.com", r2);
-		User c = new User("c", "c", "c", "c", "c@gmail.com", r3);
-		UserDao ud = new UserDao(1);
+//		Role r = new Role(1,"admin");
+//		Role r2 = new Role(2,"employee");
+//		Role r3 = new Role(3,"customer");
+//		User a = new User("a", "a", "a", "a", "a@gmail.com", r);
+//		User e = new User("e", "e", "e", "e", "e@gmail.com", r2);
+//		User c = new User("c", "c", "c", "c", "c@gmail.com", r3);
+//		UserDao ud = new UserDao(1);
 		//User u2 = ud.insert(a);
 		//ud.insert(e);
 		//ud.insert(c);
@@ -23,6 +23,13 @@ public class test {
 		//boolean t = ud.update(up);
 	//System.out.println(u2.getEmail());
 		//ud.delete(u);
+		
+//		AccountStatusDao asd = new AccountStatusDao(1);
+//		AccountStatus as = asd.findById(1);
+//		System.out.println(as.getStatusId()+as.getStatus());
+//		AccountTypeDao atd = new AccountTypeDao(1);
+//		AccountType at = atd.findById(1);
+//		System.out.println(at.getTypeId()+at.getType());
 
 	}
 

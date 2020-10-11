@@ -41,6 +41,16 @@ public class UserService {
 		
 		
 	}
+	
+	public User updateUser(User user) {
+		Role role = rdao.findRoleById(user.getRoleID());
+		user.setRole(role);
+		if(udao.update(user)) {
+			return findById(user.getUserId());
+		}
+		return null;
+		
+	}
 		
 
 	
@@ -54,6 +64,11 @@ public class UserService {
 	}
 	public User findByUsername(String u) {
 		return udao.findByUsername(u);
+	}
+
+	public List<User> findAllUsers() {
+		
+		return udao.findAllUsers();
 	}
 	
 	
