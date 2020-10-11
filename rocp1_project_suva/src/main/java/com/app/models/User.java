@@ -1,13 +1,15 @@
 package com.app.models;
 
 public class User {
-	private int user_id; 
+	private int userId; 
 	private String username; 
-	private String pass_word;
-	private String first_name; 
-	private String last_name; 
+	private String password;
+	private String firstName; 
+	private String lastName; 
 	private String email; 
 	private String updatePassword;
+	private Role role;
+	private int roleID;
 
 	public String getUpdatePassword() {
 		return updatePassword;
@@ -17,7 +19,7 @@ public class User {
 	public void setUpdatePassword(String updatePassword) {
 		this.updatePassword = updatePassword;
 	}
-	private Role role;
+	
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -27,10 +29,10 @@ public class User {
 	public User(int userId, String username, String firstName, String lastName, String email,
 			Role role) {
 		super();
-		this.user_id = userId;
+		this.userId = userId;
 		this.username = username;		
-		this.first_name = firstName;
-		this.last_name = lastName;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.email = email;
 		this.role = role;
 	}
@@ -38,29 +40,39 @@ public class User {
 	public User(String username, String password, String firstName, String lastName, String email, Role role) {
 		super();		
 		this.username = username;	
-		this.pass_word = password;
-		this.first_name = firstName;
-		this.last_name = lastName;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.email = email;
 		this.role = role;
 	}
 	
 	public User(int userId, String username, String password, String firstName, String lastName, String email, Role role) {
 		super();
-		this.user_id = userId;
+		this.userId = userId;
 		this.username = username;
-		this.pass_word = password;
+		this.password = password;
 		this.role = role;
-		this.first_name = firstName;
-		this.last_name = lastName;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.email = email;
 	}
 
+	public int getRoleID() {
+		return roleID;
+	}
+
+
+	public void setRoleID(int roleID) {
+		this.roleID = roleID;
+	}
+
+
 	public int getUserId() {
-		return user_id;
+		return userId;
 	}
 	public void setUserId(int userId) {
-		this.user_id = userId;
+		this.userId = userId;
 	}
 	public String getUsername() {
 		return username;
@@ -69,22 +81,22 @@ public class User {
 		this.username = username;
 	}
 	public String getPassword() {
-		return pass_word;
+		return password;
 	}
 	public void setPassword(String password) {
-		this.pass_word = password;
+		this.password = password;
 	}
 	public String getFirstName() {
-		return first_name;
+		return firstName;
 	}
 	public void setFirstName(String firstName) {
-		this.first_name = firstName;
+		this.firstName = firstName;
 	}
 	public String getLastName() {
-		return last_name;
+		return lastName;
 	}
 	public void setLastName(String lastName) {
-		this.last_name = lastName;
+		this.lastName = lastName;
 	}
 	public String getEmail() {
 		return email;
@@ -100,8 +112,8 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [userId=" + user_id + ", username=" + username + ", password=" + pass_word + ", firstName="
-				+ first_name + ", lastName=" + last_name + ", email=" + email + ", role=" + role + "]";
+		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", firstName="
+				+ firstName + ", lastName=" + lastName + ", email=" + email + ", role=" + role + "]";
 	}
 
 }

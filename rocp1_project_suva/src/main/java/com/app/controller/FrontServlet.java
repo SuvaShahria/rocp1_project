@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
 /**
  * Servlet implementation class FrontServlet
  */
@@ -32,7 +33,7 @@ public class FrontServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		System.out.println("in doGet"); 
+		//System.out.println("in doGet"); 
 		entry(request, response);
 	}
 
@@ -101,12 +102,21 @@ public class FrontServlet extends HttpServlet {
 				}else {
 					response.getWriter().println("Only admin can access");		
 				}
+			}else if(method.equals("DELETE")) {
+				if(roleId == 1) {
+					userController.delete(request, response);
+				}else {
+					response.getWriter().println("Only admin can access");		
+				}
+			}else if(method.equals("PUT")) {
+				userController.update(request,response,roleId);
+				
 			}
 			
-			System.out.println("users");
+			//System.out.println("users");
 			break;
 		default:
-			System.out.println("default");
+			//System.out.println("default");
 			break;
 		}
 		

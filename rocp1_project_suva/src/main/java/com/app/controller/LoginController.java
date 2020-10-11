@@ -40,11 +40,13 @@ public class LoginController {
 		    if( user != null) {
 		    	HttpSession ses = request.getSession();
 				ses.setAttribute("userid", user.getUserId());
-				System.out.println("userid: "+ user.getUserId());
+				//System.out.println("userid: "+ user.getUserId());
 				ses.setAttribute("username", user.getUsername());
 				ses.setAttribute("email", user.getEmail());
 				ses.setAttribute("roleId", user.getRole().getRoleId());
 				//gson.toJson(player)
+				user.setRoleID(user.getRole().getRoleId());
+				response.setStatus(200);
 				response.getWriter().println(gson.toJson(user));
 		    }else {
 		    	String message = "{ \"message\": \"Invalid Credentials\" }";

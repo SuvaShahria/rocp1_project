@@ -191,10 +191,10 @@ public class UserDao {
 
 		try(Connection connector = mySqlConnector.getConnection();){
 		
-			String sql ="DELETE "+ "FROM users "+"WHERE email = ?;";	
+			String sql ="DELETE "+ "FROM users "+"WHERE user_id = ?;";	
 			PreparedStatement statement = connector.prepareStatement(sql);
 			statement = connector.prepareStatement(sql);
-			statement.setString(1,u.getEmail());
+			statement.setInt(1,u.getUserId());
 			
 			statement.executeUpdate();
 			return true;
@@ -224,6 +224,45 @@ public class UserDao {
 			e.printStackTrace();
 		}
 		return null;		
+	}
+	public User findByEmail(String email) {
+		try(Connection c = mySqlConnector.getConnection()){
+			String sql = "SELECT * FROM users WHERE email = ?";
+			PreparedStatement statement = c.prepareStatement(sql);
+			statement.setString(1,email);
+		
+			ResultSet rs = statement.executeQuery();
+			
+			if(rs.next()) {
+				User u = new User(rs.getInt("user_id"), rs.getString("username"), rs.getString("pass_word"),
+						rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"),roledoa.findRoleById(rs.getInt("role_id_users")));
+				return u;
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+	public User findByUsername(String u) {
+		try(Connection c = mySqlConnector.getConnection()){
+			String sql = "SELECT * FROM users WHERE username = ?";
+			PreparedStatement statement = c.prepareStatement(sql);
+			statement.setString(1,u);
+		
+			ResultSet rs = statement.executeQuery();
+			
+			if(rs.next()) {
+				User us = new User(rs.getInt("user_id"), rs.getString("username"), rs.getString("pass_word"),
+						rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"),roledoa.findRoleById(rs.getInt("role_id_users")));
+				return us;
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 
