@@ -93,4 +93,105 @@ Gson gson=new Gson();
 		
 	}
 
+	public void findAll(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+		System.out.println("test");
+		List<Account> accounts = as.findAll();
+		Gson gson=new Gson();
+		
+		response.getWriter().println(gson.toJson(accounts));
+		
+	}
+
+	public void findById(HttpServletRequest request, HttpServletResponse response, int roleId, String s) throws ServletException, IOException{
+		// TODO Auto-generated method stub
+		int id = Integer.parseInt(s);
+		Gson gson=new Gson();
+		HttpSession ses = request.getSession(false);
+		Account account = as.findById(id);
+		if(account != null) {
+			if(roleId == 1 || roleId == 2 || account.getUserId()== (int)ses.getAttribute("userid")) {
+				response.getWriter().println(gson.toJson(account));
+				response.setStatus(200);
+			}else {
+				response.setStatus(401);		
+				String message = "{ \"message\": \"The requested action is not permitted\" }";
+		    	JsonObject json2 = new Gson().fromJson(message, JsonObject.class);
+		    	response.getWriter().println(json2);
+		    	return;
+			}
+		}else {
+			response.setStatus(401);
+			String message = "{ \"message\": \"Failed to find account\" }";
+	    	JsonObject json2 = new Gson().fromJson(message, JsonObject.class);
+	    	response.getWriter().println(json2);
+		}
+		
+//		if(roleId == 1 || roleId == 2 || id== (int)ses.getAttribute("userid")) {
+//			
+//			Account account = as.findById(id);
+//			
+//			if(account != null) {
+//				response.getWriter().println(gson.toJson(account));
+//				response.setStatus(200);
+//			}else {
+//				String message = "{ \"message\": \"Failed to find accounts\" }";
+//		    	JsonObject json2 = new Gson().fromJson(message, JsonObject.class);
+//		    	response.getWriter().println(json2);
+//			}
+//		}else {
+//			response.setStatus(401);		
+//			String message = "{ \"message\": \"The requested action is not permitted\" }";
+//	    	JsonObject json2 = new Gson().fromJson(message, JsonObject.class);
+//	    	response.getWriter().println(json2);
+//	    	return;
+//		}
+	}
+	
+	public void findByAllId(HttpServletRequest request, HttpServletResponse response, int roleId, String s) throws ServletException, IOException{
+		// TODO Auto-generated method stub
+		int id = Integer.parseInt(s);
+		Gson gson=new Gson();
+		HttpSession ses = request.getSession(false);
+		if(roleId == 1 || roleId == 2 || id== (int)ses.getAttribute("userid")) {
+			
+			List<Account> accounts = as.findAccountsById(id);
+			
+			if(accounts != null) {
+				response.getWriter().println(gson.toJson(accounts));
+				response.setStatus(200);
+			}else {
+				String message = "{ \"message\": \"Failed to find accounts\" }";
+		    	JsonObject json2 = new Gson().fromJson(message, JsonObject.class);
+		    	response.getWriter().println(json2);
+			}
+		}else {
+			response.setStatus(401);		
+			String message = "{ \"message\": \"The requested action is not permitted\" }";
+	    	JsonObject json2 = new Gson().fromJson(message, JsonObject.class);
+	    	response.getWriter().println(json2);
+	    	return;
+		}
+	}
+
+	public void findAllByStatusId(HttpServletRequest request, HttpServletResponse response, String s) throws ServletException, IOException{
+		// TODO Auto-generated method stub
+		int id = Integer.parseInt(s);
+		Gson gson=new Gson();
+		HttpSession ses = request.getSession(false);
+			
+			List<Account> accounts = as.findAccountsByStatusId(id);
+			
+			if(accounts != null) {
+				response.getWriter().println(gson.toJson(accounts));
+				response.setStatus(200);
+			}else {
+				String message = "{ \"message\": \"Failed to find accounts\" }";
+		    	JsonObject json2 = new Gson().fromJson(message, JsonObject.class);
+		    	response.getWriter().println(json2);
+			}
+		
+		
+		
+	}
+
 }

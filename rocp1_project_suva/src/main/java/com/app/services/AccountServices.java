@@ -51,4 +51,55 @@ public class AccountServices {
 		return ac2;
 	}
 
+	public List<Account> findAll() {
+		// TODO Auto-generated method stub
+		
+		List<Account> accounts = acdao.findAll();
+		if(accounts != null) {
+			for(Account a:accounts) {
+				a.setStatusId(a.getStatus().getStatusId());
+				a.setTypeId(a.getType().getTypeId());
+			}
+		}
+		
+		return accounts;
+	}
+
+	public Account findById(int id) {
+		// TODO Auto-generated method stub
+		Account ac = acdao.findById(id);
+		if(ac!= null) {
+			ac.setStatusId(ac.getStatus().getStatusId());
+			ac.setTypeId(ac.getType().getTypeId());
+		}
+		return ac;
+	}
+
+	public List<Account> findAccountsById(int id) {
+		// TODO Auto-generated method stub
+		List<Account> accounts = acdao.findAccountsById(id);
+		if(accounts!= null) {
+			for(Account a:accounts) {
+				a.setStatusId(a.getStatus().getStatusId());
+				a.setTypeId(a.getType().getTypeId());
+			}
+		}
+		
+		return accounts;
+		
+	}
+
+	public List<Account> findAccountsByStatusId(int id) {
+		// TODO Auto-generated method stub
+		List<Account> accounts = acdao.findAccountsByStatusId(id);
+		if(accounts!= null) {
+			for(Account a:accounts) {
+				a.setStatusId(a.getStatus().getStatusId());
+				a.setTypeId(a.getType().getTypeId());
+			}
+		}
+		
+		return accounts;
+	}
+
 }

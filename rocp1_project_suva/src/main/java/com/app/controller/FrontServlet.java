@@ -188,6 +188,46 @@ public class FrontServlet extends HttpServlet {
 			    	JsonObject json2 = new Gson().fromJson(message, JsonObject.class);
 			    	response.getWriter().println(json2);
 				}
+			}else if (method.equals("GET")) {
+				if(urlSplit.length == 1) {
+					if(roleId == 1 || roleId == 2) {
+						accountController.findAll(request,response);
+					}else {
+						response.setStatus(401);		
+						String message = "{ \"message\": \"The requested action is not permitted\" }";
+				    	JsonObject json2 = new Gson().fromJson(message, JsonObject.class);
+				    	response.getWriter().println(json2);
+					}
+				}else if(urlSplit.length == 2) {
+					accountController.findById(request,response, roleId, urlSplit[1] );
+				}else {
+					if(urlSplit[1].equals("status")) {
+						if(roleId == 1 || roleId == 2) {
+							accountController.findAllByStatusId(request, response, urlSplit[2]);
+						}else {
+							response.setStatus(401);		
+							String message = "{ \"message\": \"The requested action is not permitted\" }";
+					    	JsonObject json2 = new Gson().fromJson(message, JsonObject.class);
+					    	response.getWriter().println(json2);
+						}
+					}else {
+						if(roleId == 1 || roleId == 2 ||  (urlSplit[1].equals(ses.getAttribute("username")) && Integer.parseInt(urlSplit[2])==  (int)ses.getAttribute("userid")) ) {
+							accountController.findByAllId(request, response, roleId, urlSplit[2]);
+							System.out.println(urlSplit[1]+" "+urlSplit[2]);
+							
+							
+						}else {
+							response.setStatus(401);		
+							String message = "{ \"message\": \"The requested action is not permitted\" }";
+					    	JsonObject json2 = new Gson().fromJson(message, JsonObject.class);
+					    	response.getWriter().println(json2);
+					    	
+						}
+					}
+					
+					
+				}
+					
 			}
 			
 			break;

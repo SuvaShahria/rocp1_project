@@ -56,7 +56,10 @@ public class UserService {
 	
 	public User findById(int id) {
 		
-		return udao.findById(id);
+		User user = udao.findById(id);
+		Role role = rdao.findRoleById(user.getRoleID());
+		user.setRole(role);
+		return user;
 		
 	}
 	public User findByEmail(String e) {

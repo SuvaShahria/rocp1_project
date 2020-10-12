@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 public class AccountDao {
 	
 	private static final AccountDao adao = new AccountDao();
@@ -156,6 +158,108 @@ public class AccountDao {
 			
 		}
 		return null;
+	}
+	public List<Account> findAll() {
+		try(Connection connector = mySqlConnector.getConnection()){
+			String sql = "SELECT * FROM accounts account_id;";
+			Statement statement = connector.createStatement();
+			
+			List<Account> accounts = new ArrayList<>();
+						
+			ResultSet rs = statement.executeQuery(sql);
+			
+			while(rs.next()) {
+				Account ac = new Account(rs.getInt("account_id"),rs.getInt("user_id_fk"),
+						udao.findById(rs.getInt("user_id_fk")),
+						rs.getFloat("balance"),
+						asdao.findById(rs.getInt("status_id_fk")),
+						atdao.findById(rs.getInt("type_id_fk")));
+				
+				accounts.add(ac);
+			}
+			
+			return accounts;
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public List<Account> findAccountsById(int id) {
+		try(Connection connector = mySqlConnector.getConnection()){
+			String sql = "SELECT * FROM accounts WHERE user_id_fk = ?;";
+			PreparedStatement statement = connector.prepareStatement(sql);
+			statement.setInt(1,id);
+			
+			List<Account> accounts = new ArrayList<>();
+			
+			ResultSet rs = statement.executeQuery();
+			
+		
+//			String sql ="DELETE "+ "FROM accounts "+ "WHERE account_id = ?;";
+//			PreparedStatement statement = connector.prepareStatement(sql);
+//			statement = connector.prepareStatement(sql);
+//			statement.setInt(1,ac.getAccountId());
+			
+			
+						
+			
+			
+			while(rs.next()) {
+				Account ac = new Account(rs.getInt("account_id"),rs.getInt("user_id_fk"),
+						udao.findById(rs.getInt("user_id_fk")),
+						rs.getFloat("balance"),
+						asdao.findById(rs.getInt("status_id_fk")),
+						atdao.findById(rs.getInt("type_id_fk")));
+				
+				accounts.add(ac);
+			}
+			
+			return accounts;
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+	public List<Account> findAccountsByStatusId(int id) {
+		try(Connection connector = mySqlConnector.getConnection()){
+			String sql = "SELECT * FROM accounts WHERE status_id_fk = ?;";
+			PreparedStatement statement = connector.prepareStatement(sql);
+			statement.setInt(1,id);
+			
+			List<Account> accounts = new ArrayList<>();
+			
+			ResultSet rs = statement.executeQuery();
+			
+		
+//			String sql ="DELETE "+ "FROM accounts "+ "WHERE account_id = ?;";
+//			PreparedStatement statement = connector.prepareStatement(sql);
+//			statement = connector.prepareStatement(sql);
+//			statement.setInt(1,ac.getAccountId());
+			
+			
+						
+			
+			
+			while(rs.next()) {
+				Account ac = new Account(rs.getInt("account_id"),rs.getInt("user_id_fk"),
+						udao.findById(rs.getInt("user_id_fk")),
+						rs.getFloat("balance"),
+						asdao.findById(rs.getInt("status_id_fk")),
+						atdao.findById(rs.getInt("type_id_fk")));
+				
+				accounts.add(ac);
+			}
+			
+			return accounts;
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+		
 	}
 
 }
