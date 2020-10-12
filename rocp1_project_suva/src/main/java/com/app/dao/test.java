@@ -24,13 +24,25 @@ public class test {
 	//System.out.println(u2.getEmail());
 		//ud.delete(u);
 		
-//		AccountStatusDao asd = new AccountStatusDao(1);
-//		AccountStatus as = asd.findById(1);
+		AccountStatusDao asd = new AccountStatusDao(1);
+		AccountStatus as = asd.findById(2);
 //		System.out.println(as.getStatusId()+as.getStatus());
-//		AccountTypeDao atd = new AccountTypeDao(1);
-//		AccountType at = atd.findById(1);
+		AccountTypeDao atd = new AccountTypeDao(1);
+		AccountType at = atd.findById(1);
 //		System.out.println(at.getTypeId()+at.getType());
-
+//		AccountDao ad = new  AccountDao(1);
+//		Account a = ad.findById(1);
+//		System.out.println(a.getAccountId());
+//		System.out.println(a.getUserId());
+//		System.out.println(a.getUser().getUserId());
+//		System.out.println(a.getBalance());
+//		System.out.println(a.getStatus().getStatus());
+//		System.out.println(a.getType().getType());
+		AccountDao ad = new  AccountDao(1);
+		Account ac = new Account(21,15,as,at);
+		ac.setAccountId(4);
+		ad.delete(ac);
+		//ad.updateStatus(ac);
 	}
 
 }

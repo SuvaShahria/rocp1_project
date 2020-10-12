@@ -40,6 +40,24 @@ public class Account {
 		this.typeId = typeId;
 	}
 
+	public Account(int accountId, int userId, User user, float balance, AccountStatus status, AccountType type) {
+		super();
+		this.accountId = accountId;
+		this.userId = userId;
+		this.user = user;
+		this.balance = balance;
+		this.status = status;
+		this.type = type;
+	}
+
+	public Account(int userId, float balance, AccountStatus status, AccountType type) {
+		super();
+		this.userId = userId;
+		this.balance = balance;
+		this.status = status;
+		this.type = type;
+	}
+
 	public int getAccountId() {
 		return accountId;
 	}

@@ -21,6 +21,7 @@ public class FrontServlet extends HttpServlet {
 	private static int count;
 	private static final LoginController login = new LoginController();
 	private static final UserController userController = new UserController();
+	private static final AccountController accountController = new AccountController();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -126,20 +127,61 @@ public class FrontServlet extends HttpServlet {
 				userController.update(request,response,roleId);
 				
 			}else if(method.equals("GET")) {
-				//System.out.println(urlSplit.length);
-				if(roleId == 1 || roleId == 2) {
-					
-					if(urlSplit.length != 2) {
+				if(urlSplit.length != 2) {
+					if(roleId == 1 || roleId == 2) {
 						userController.findAllUsers(request,response);
-						//System.out.println(urlSplit.length);
-						//System.out.println("t"+ urlSplit[1]);
-						//uc.findAll(req, res);
-					} else {
-						userController.findById(request,response,urlSplit[1]);
-						//System.out.println(urlSplit[1]);
-						//System.out.println(urlSplit[1]);
-						//uc.findById(req, res,Integer.parseInt(URIparts[1]));
+					}else {
+						response.setStatus(401);		
+						String message = "{ \"message\": \"The requested action is not permitted\" }";
+				    	JsonObject json2 = new Gson().fromJson(message, JsonObject.class);
+				    	response.getWriter().println(json2);
 					}
+				}else {
+					userController.findById(request,response,urlSplit[1],roleId);
+				}
+				//System.out.println(urlSplit.length);
+//				if(userController.findById2(request,response,urlSplit[1])) {
+//					
+//				}else {
+//					
+//				}
+//				if(roleId == 1 || roleId == 2) {
+//					
+//					if(urlSplit.length != 2) {
+//						userController.findAllUsers(request,response);
+//						//System.out.println(urlSplit.length);
+//						//System.out.println("t"+ urlSplit[1]);
+//						
+//					} else {
+//						userController.findById(request,response,urlSplit[1]);
+//						//System.out.println(urlSplit[1]);
+//						//System.out.println(urlSplit[1]);
+//						
+//					}
+//				}else {
+//				
+//					response.setStatus(401);		
+//					String message = "{ \"message\": \"The requested action is not permitted\" }";
+//			    	JsonObject json2 = new Gson().fromJson(message, JsonObject.class);
+//			    	response.getWriter().println(json2);
+//				}
+			}
+			
+			//System.out.println("users");
+			break;
+		case "accounts":
+			
+			if (method.equals("POST")) {
+				if(urlSplit.length == 1) {
+					accountController.insertAccount(request,response,roleId);
+				}
+				
+			}else if (method.equals("PUT")) {
+				
+				accountController.updateAccount(request,response,roleId);
+			}else if (method.equals("DELETE")) {
+				if(roleId == 1) {
+					accountController.delete(request,response);
 				}else {
 					response.setStatus(401);		
 					String message = "{ \"message\": \"The requested action is not permitted\" }";
@@ -148,7 +190,6 @@ public class FrontServlet extends HttpServlet {
 				}
 			}
 			
-			//System.out.println("users");
 			break;
 		default:
 			//System.out.println("default");

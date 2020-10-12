@@ -214,6 +214,7 @@ public class UserDao {
 			if(rs.next()) {
 				User u = new User(rs.getInt("user_id"), rs.getString("username"), rs.getString("pass_word"),
 						rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"),roledoa.findRoleById(rs.getInt("role_id_users")));
+				u.setRoleID(u.getRole().getRoleId());
 				return u;
 			}
 			
@@ -233,6 +234,7 @@ public class UserDao {
 			if(rs.next()) {
 				User u = new User(rs.getInt("user_id"), rs.getString("username"), rs.getString("pass_word"),
 						rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"),roledoa.findRoleById(rs.getInt("role_id_users")));
+				u.setRoleID(u.getRole().getRoleId());
 				return u;
 			}
 			
@@ -253,6 +255,7 @@ public class UserDao {
 			if(rs.next()) {
 				User us = new User(rs.getInt("user_id"), rs.getString("username"), rs.getString("pass_word"),
 						rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"),roledoa.findRoleById(rs.getInt("role_id_users")));
+				us.setRoleID(us.getRole().getRoleId());
 				return us;
 			}
 			
@@ -271,7 +274,7 @@ public class UserDao {
 			while(rs.next()) {
 				User user = new User(rs.getInt("user_id"), rs.getString("username"), rs.getString("pass_word"),
 						rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"),roledoa.findRoleById(rs.getInt("role_id_users")));
-				
+				user.setRoleID(user.getRole().getRoleId());
 				users.add(user);
 			}
 			
