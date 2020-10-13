@@ -174,6 +174,14 @@ public class FrontServlet extends HttpServlet {
 			if (method.equals("POST")) {
 				if(urlSplit.length == 1) {
 					accountController.insertAccount(request,response,roleId);
+				}else {
+					if(urlSplit[1].equals("deposit")) {
+						accountController.deposit(request,response,roleId);
+					}else if(urlSplit[1].equals("withdraw")) {
+						accountController.withdraw(request,response,roleId);
+					}else if(urlSplit[1].equals("transfer")) {
+						accountController.transfer(request,response,roleId);
+					}
 				}
 				
 			}else if (method.equals("PUT")) {

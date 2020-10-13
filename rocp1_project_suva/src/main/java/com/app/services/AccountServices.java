@@ -102,4 +102,12 @@ public class AccountServices {
 		return accounts;
 	}
 
+	public void updateBalance(Account ac) {
+		// TODO Auto-generated method stub
+		acdao.updateBalance(ac);
+//		System.out.println(ac.getAccountId());
+//		System.out.println(ac.getBalance());
+		
+	}
+
 }

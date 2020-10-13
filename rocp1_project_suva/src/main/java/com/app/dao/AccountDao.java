@@ -261,5 +261,30 @@ public class AccountDao {
 		return null;
 		
 	}
+	public void updateBalance(Account ac) {
+//		System.out.println(ac.getAccountId());
+//		System.out.println(ac.getBalance());
+		
+		 
+		try(Connection c = mySqlConnector.getConnection()){	
+			
+				String sql = "UPDATE accounts SET balance = ? WHERE account_id = ?;";
+				
+				
+				PreparedStatement statement = c.prepareStatement(sql);
+				statement.setFloat(1,ac.getBalance());
+				statement.setInt(2,ac.getAccountId());
+				statement.executeUpdate();
+				
+			
+				
+			
+						
+		}catch(SQLException e) {
+			e.printStackTrace();
+			
+		}
+	
+	}
 
 }
